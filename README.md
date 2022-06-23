@@ -1,6 +1,5 @@
 # Cycle
-Snake is a clone of the classic game that we all used to play on our cellphones. You play this game 
-on a simulated terminal, with a textual interface.
+Cycle is a game where the players try to cut each other off using cycles that leave a trail behind them.
 
 ## Getting Started
 ---
