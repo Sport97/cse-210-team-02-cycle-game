@@ -25,3 +25,4 @@ class Score(Actor):
         """
         self._points += points
         self.set_text(f"Score: {self._points}")
+        #self.set_text(f"Score2: {self._points}")

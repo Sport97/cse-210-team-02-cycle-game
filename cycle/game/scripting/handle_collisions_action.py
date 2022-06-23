@@ -36,16 +36,13 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        score = cast.get_first_actor("scores")
-        food = cast.get_first_actor("foods")
+        #score = cast.get_first_actor("scores")
         snake = cast.get_first_actor("snakes")
-        head = snake.get_head()
-
-        if head.get_position().equals(food.get_position()):
-            points = food.get_points()
-            snake.grow_tail(points)
-            score.add_points(points)
-            food.reset()
+        second_snake = cast.get_first_actor("second snake")
+        snake.grow_tail(1)
+        second_snake.grow_second_snake_tail(1)
+        #score.add_points(points)
+            
     
     def _handle_segment_collision(self, cast):
         """Sets the game over flag if the snake collides with one of its segments.
@@ -55,15 +52,17 @@ class HandleCollisionsAction(Action):
         """
         snake = cast.get_first_actor("snakes")
         second_snake = cast.get_first_actor("second snake")
-        head = snake.get_segments()[0]
-        second_head = second_snake.get_segments()[0]
-        segments = snake.get_segments()[1:]
-        second_segments = second_snake.get_segments()[1:]
-        
+        #head = snake.get_segments()[0]
+        #second_head = second_snake.get_second_snake_segments()[0]
+        segments = snake.get_segments()
+        second_segments = second_snake.get_second_snake_segments()
+
         for segment in segments:
             for second_segment in second_segments:
-                if head.get_position().equals(second_head.get_position()) and segment.get_position().equals(second_segment.get_position()):
-                    self._is_game_over = True
+                if segment.get_position().equals(second_segment.get_position()):
+                     self._is_game_over = True
+       
+        
         
     def _handle_game_over(self, cast):
         """Shows the 'game over' message and turns the snake and food white if the game is over.
@@ -73,8 +72,10 @@ class HandleCollisionsAction(Action):
         """
         if self._is_game_over:
             snake = cast.get_first_actor("snakes")
+            second_snake = cast.get_first_actor("second snake")
             segments = snake.get_segments()
-            food = cast.get_first_actor("foods")
+            second_segments = second_snake.get_second_snake_segments()
+            #food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
@@ -82,9 +83,13 @@ class HandleCollisionsAction(Action):
 
             message = Actor()
             message.set_text("Game Over!")
+            message.set_font_size(50)
+            message.set_color(constants.RED)
             message.set_position(position)
             cast.add_actor("messages", message)
 
             for segment in segments:
-                segment.set_color(constants.WHITE)
-            food.set_color(constants.WHITE)
+                segment.set_color(constants.GREEN)
+            
+            for second_segment in second_segments:
+                second_segment.set_color(constants.YELLOW)
