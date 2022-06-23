@@ -36,12 +36,10 @@ class HandleCollisionsAction(Action):
         Args:
             cast (Cast): The cast of Actors in the game.
         """
-        #score = cast.get_first_actor("scores")
         snake = cast.get_first_actor("snakes")
         second_snake = cast.get_first_actor("second snake")
         snake.grow_tail(1)
         second_snake.grow_second_snake_tail(1)
-        #score.add_points(points)
             
     
     def _handle_segment_collision(self, cast):
@@ -52,8 +50,6 @@ class HandleCollisionsAction(Action):
         """
         snake = cast.get_first_actor("snakes")
         second_snake = cast.get_first_actor("second snake")
-        #head = snake.get_segments()[0]
-        #second_head = second_snake.get_second_snake_segments()[0]
         segments = snake.get_segments()
         second_segments = second_snake.get_second_snake_segments()
 
@@ -75,7 +71,6 @@ class HandleCollisionsAction(Action):
             second_snake = cast.get_first_actor("second snake")
             segments = snake.get_segments()
             second_segments = second_snake.get_second_snake_segments()
-            #food = cast.get_first_actor("foods")
 
             x = int(constants.MAX_X / 2)
             y = int(constants.MAX_Y / 2)
@@ -89,7 +84,7 @@ class HandleCollisionsAction(Action):
             cast.add_actor("messages", message)
 
             for segment in segments:
-                segment.set_color(constants.GREEN)
+                segment.set_color(constants.WHITE)
             
             for second_segment in second_segments:
-                second_segment.set_color(constants.YELLOW)
+                second_segment.set_color(constants.WHITE)
